@@ -202,3 +202,31 @@ function addRole(){
   }).then(() => mainMenu())
   
   }
+
+//-------View employee by manager------
+  function  viewByman(){
+    db.viewmanager()
+    .then(([rows]) =>{
+        let manger2 = rows;
+        const man1 = manger2.map(({first_name}) => ({
+         name: first_name,
+        } ) )
+        inquirer.prompt([
+            {
+            type: "list",
+            name: "managern",
+            message: "Choose the manager name?",
+            choices: man1
+            }
+        ] )
+        .then (answer => {
+           db.vewbymanager(answer.managern)
+           .then(([rows2]) =>{
+             let viewbm = rows2;
+             console.table(viewbm)
+           })
+           .then(() => mainMenu())
+                })
+                
+            })
+  }

@@ -51,7 +51,19 @@ class DB {
         )
     }
 
+    vewbymanager(empmanId){
+        return this.connection.promise().query(
+        `SELECT employee.id, employee.first_name, employee.last_name, concat(m.first_name, ' ' ,  m.last_name) AS manager FROM employee employee LEFT JOIN employee m ON employee.manager_id = m.id  INNER JOIN roles ON employee.role_id = roles.id  where m.first_name = "${empmanId}";` 
+        )
+     }
 
+  viewmanager(){
+    return this.connection.promise().query(
+    `SELECT employee.id, employee.first_name, employee.last_name
+    FROM employee  
+    where manager_id is null;;`
+    )
+  }
 
 
 
