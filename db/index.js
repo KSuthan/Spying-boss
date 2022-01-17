@@ -51,12 +51,15 @@ class DB {
         )
     }
 
+    // ----- View by manager query -----
     vewbymanager(empmanId){
         return this.connection.promise().query(
         `SELECT employee.id, employee.first_name, employee.last_name, concat(m.first_name, ' ' ,  m.last_name) AS manager FROM employee employee LEFT JOIN employee m ON employee.manager_id = m.id  INNER JOIN roles ON employee.role_id = roles.id  where m.first_name = "${empmanId}";` 
         )
      }
 
+
+     // --- View manager only query-----
   viewmanager(){
     return this.connection.promise().query(
     `SELECT employee.id, employee.first_name, employee.last_name
@@ -65,7 +68,7 @@ class DB {
     )
   }
 
-
+// ---- View by department query ------
   viewbydept(deptn2){
     return this.connection.promise().query(
         ` SELECT employee.id, employee.first_name, employee.last_name, roles.title, department.name AS department, roles.salary, concat(m.first_name, ' ' ,  m.last_name) AS manager FROM employee employee LEFT JOIN employee m ON employee.manager_id = m.id INNER JOIN roles ON employee.role_id = roles.id INNER JOIN department ON roles.department_id = department.id where department.name =  "${deptn2}";`
@@ -73,7 +76,12 @@ class DB {
 
   }
 
-
+// -----Update employee manager query----
+  updateempman(employeeId, newman){
+    return this.connection.promise().query(
+        "UPDATE employee SET manager_id = ? where id = ?;" , [newman, employeeId]
+    )
+ }
 
 
 

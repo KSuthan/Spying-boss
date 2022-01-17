@@ -243,7 +243,7 @@ function   viewbyDept(){
           {
           type: "list",
           name: "deptname",
-          message: "Choose the manager name?",
+          message: "Choose the department?",
           choices: deptchoice
           }
       ] )
@@ -257,4 +257,57 @@ function   viewbyDept(){
               })
               
           })
+}
+
+
+//----- Update employee manager function ------
+function  updatEmpman(){
+  db.findAllEmployees()
+  .then(([rows]) =>{
+      let employee1 = rows;
+      const empchoice1 = employee1.map(({id,first_name,last_name}) => ({
+       name: `${first_name} ${last_name}`,
+       value: id
+      }
+      )
+      )
+      inquirer.prompt([
+          {
+          type: "list",
+          name: "employeeId",
+          message: "which employee's manager do you want to update?",
+          choices: empchoice1
+          }
+      ]).then (response => {
+          let employeeId = response.employeeId;
+          db.findAllEmployees()
+          .then (([rows1]) => {
+              let manager1 = rows1;
+              const manChoices2 = manager1.map(({id,first_name,last_name}) => ({
+                  name: `${first_name} ${last_name}`,
+                  value: id
+              }
+              )
+              )
+              inquirer.prompt([
+                  {
+                  type: "list",
+                  name: "managername",
+                  message: "Who is your new manager?",
+                  choices: manChoices2
+                  }
+              ]).then(response => {
+                  let newman = response.managername;
+                  db.updateempman(employeeId, newman)
+                  console.table(" ");
+              }
+              )
+              .then(() => mainMenu())
+          }
+          )
+          
+      }
+      )
+  }
+  )
 }
