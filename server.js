@@ -116,3 +116,21 @@ function viewEmployees() {
         })
         .then(() => mainMenu())
 }
+
+//---------Function to add a department-----
+function addDDept() {
+    inquirer
+    .prompt([
+        {
+          type: "input",
+          message: "Enter the department name",
+          name: "departmentname"
+        }
+      ])
+    .then(responce =>{
+        let newDept = responce.departmentname;
+        db.addNewDept(newDept)
+        console.log(`\n Deaprtment ${responce.departmentname} ADDED \n`);
+    })
+    .then(() => mainMenu())
+}

@@ -29,6 +29,12 @@ class DB {
             )
         }
 
+     addNewDept(deprtmentname){
+         return this.connection.promise().query(
+        `INSERT INTO  department (name) VALUES ("${deprtmentname}")`
+               )
+         }
+
 
 
 
