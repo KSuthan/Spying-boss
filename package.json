@@ -1,0 +1,29 @@
+{
+  "name": "spying-boss",
+  "version": "1.0.0",
+  "description": "This is a employee tracker app.",
+  "main": "server.js",
+  "scripts": {
+    "test": "N/A",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KSuthan/Spying-boss.git"
+  },
+  "keywords": [
+    "employee",
+    "tracker"
+  ],
+  "author": "K.Suthan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KSuthan/Spying-boss/issues"
+  },
+  "homepage": "https://github.com/KSuthan/Spying-boss#readme",
+  "dependencies": {
+    "dotenv": "^13.0.1",
+    "inquirer": "^8.2.0",
+    "mysql2": "^2.3.3"
+  }
+}
