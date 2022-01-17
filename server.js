@@ -134,3 +134,34 @@ function addDDept() {
     })
     .then(() => mainMenu())
 }
+
+// ---------Function to add a new role------
+function addRole(){
+    inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "Enter the  title",
+        name: "roletitle"
+      },
+      {
+        type: "input",
+        message: "Enter the salary",
+        name: "salary"
+      },
+      {
+        type: "input",
+        message: "Enter the  department",
+        name: "department"
+      }
+    ])
+    .then(responce =>{
+      let newrole = responce.roletitle;
+      let newsalary = responce.salary;
+      let department1 = responce.department
+      db.addNewRole(newrole,newsalary,department1)
+      console.log(`\n Deaprtment ${responce.roletitle} ADDED \n`);
+      
+  }).then(() => mainMenu())
+  
+  }
