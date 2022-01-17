@@ -85,3 +85,14 @@ function mainMenu(){
     }
 })
 }
+
+// -------Function view all department------
+function viewDept() {
+    db.findAllDepartments()
+      .then(([rows]) => {
+          let employees = rows;
+          console.table(employees)
+      })
+      .then(() => mainMenu())
+  
+  }

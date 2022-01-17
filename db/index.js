@@ -7,6 +7,25 @@ class DB {
         this.connection = connection;
     }
 
+
+    
+    findAllDepartments(){
+        return this.connection.promise().query(
+        "select id as dept_id, name as department from department;"
+        )
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 module.exports = new DB(connection);
