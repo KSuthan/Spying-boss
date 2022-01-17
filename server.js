@@ -268,9 +268,7 @@ function  updatEmpman(){
       const empchoice1 = employee1.map(({id,first_name,last_name}) => ({
        name: `${first_name} ${last_name}`,
        value: id
-      }
-      )
-      )
+      }))
       inquirer.prompt([
           {
           type: "list",
@@ -286,9 +284,7 @@ function  updatEmpman(){
               const manChoices2 = manager1.map(({id,first_name,last_name}) => ({
                   name: `${first_name} ${last_name}`,
                   value: id
-              }
-              )
-              )
+              }))
               inquirer.prompt([
                   {
                   type: "list",
@@ -300,14 +296,33 @@ function  updatEmpman(){
                   let newman = response.managername;
                   db.updateempman(employeeId, newman)
                   console.table(" ");
-              }
-              )
+              })
               .then(() => mainMenu())
+          })
+          })
+  })
+}
+
+//--- Function to delete employee---
+function  delEmp(){
+  db.findAllEmployees()
+  .then(([rows]) =>{
+      let delemp1 = rows;
+      const delempchoice= delemp1.map(({first_name}) => ({
+       name: first_name,
+      }))
+      inquirer.prompt([
+          {
+          type: "list",
+          name: "delemployeen",
+          message: "chose the employee to be delete?",
+          choices: delempchoice
           }
-          )
-          
-      }
-      )
-  }
-  )
+      ])
+      .then (answer => {
+         db.delemployee(answer.delemployeen)
+         console.log(`\n Employee ${answer.delemployeen} delete \n`)
+         })
+         .then(() => mainMenu())
+              })     
 }

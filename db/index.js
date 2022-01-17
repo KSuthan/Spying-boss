@@ -83,6 +83,13 @@ class DB {
     )
  }
 
+ //--- Delete employee ------
+ delemployee(delemp){
+    return this.connection.promise().query(
+    `DELETE FROM employee WHERE first_name = "${delemp}";`
+    )
+  }
+
 
 
 
