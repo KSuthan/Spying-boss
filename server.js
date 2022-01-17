@@ -96,3 +96,13 @@ function viewDept() {
       .then(() => mainMenu())
   
   }
+
+  // -------Function view all roles------
+  function viewRoles() {
+    db.findAllroles()
+        .then(([rows]) => {
+            let employees = rows;
+            console.table(employees)
+        })
+        .then(() => mainMenu())
+}
