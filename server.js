@@ -160,7 +160,44 @@ function addRole(){
       let newsalary = responce.salary;
       let department1 = responce.department
       db.addNewRole(newrole,newsalary,department1)
-      console.log(`\n Deaprtment ${responce.roletitle} ADDED \n`);
+      console.log(`\n Role ${responce.roletitle} ADDED \n`);
+      
+  }).then(() => mainMenu())
+  }
+
+
+  // ---------Function to add a new employee------
+  function addEmployee(){
+    inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "Enter the  employee firstname",
+        name: "firstname"
+      },
+      {
+        type: "input",
+        message: "Enter the  employee lastname",
+        name: "lastname"
+      },
+      {
+        type: "input",
+        message: "Enter the role id",
+        name: "newemprole"
+      },
+      {
+        type: "input",
+        message: "Enter the department id",
+        name: "newempdept"
+      }
+    ])
+    .then(responce =>{
+      let newFirstn = responce.firstname;
+      let newLastn = responce.lastname;
+      let newErole = responce.newemprole;
+      let newEdept = responce.newempdept
+      db.addnewEmp(newFirstn,newLastn,newErole,newEdept)
+      console.log(`\n Employee ${newFirstn}  ${newLastn} ADDED \n`);
       
   }).then(() => mainMenu())
   
