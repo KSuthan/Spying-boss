@@ -230,3 +230,31 @@ function addRole(){
                 
             })
   }
+
+//-------View by Deaprtment ----
+function   viewbyDept(){
+  db.findAllDepartments()
+  .then(([rows]) =>{
+      let deptn = rows;
+      const deptchoice = deptn.map(({department}) => ({
+       name: department,
+      } ) )
+      inquirer.prompt([
+          {
+          type: "list",
+          name: "deptname",
+          message: "Choose the manager name?",
+          choices: deptchoice
+          }
+      ] )
+      .then (answer => {
+         db.viewbydept(answer.deptname)
+         .then(([rows2]) =>{
+           let viewbd = rows2;
+           console.table(viewbd)
+         })
+         .then(() => mainMenu())
+              })
+              
+          })
+}

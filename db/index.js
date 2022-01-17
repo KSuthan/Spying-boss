@@ -66,6 +66,15 @@ class DB {
   }
 
 
+  viewbydept(deptn2){
+    return this.connection.promise().query(
+        ` SELECT employee.id, employee.first_name, employee.last_name, roles.title, department.name AS department, roles.salary, concat(m.first_name, ' ' ,  m.last_name) AS manager FROM employee employee LEFT JOIN employee m ON employee.manager_id = m.id INNER JOIN roles ON employee.role_id = roles.id INNER JOIN department ON roles.department_id = department.id where department.name =  "${deptn2}";`
+    )
+
+  }
+
+
+
 
 
 
