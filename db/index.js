@@ -103,6 +103,22 @@ class DB {
             )
     }
 
+    totalbudgets(){
+        return this.connection.promise().query( "SELECT  SUM(salary) AS budget FROM  roles INNER JOIN department ON roles.department_id = department.id inner join employee on employee.role_id = roles.id")
+     }
+
+     budbydept1(bbDebt){
+        return this.connection.promise().query(
+           `SELECT department_id AS id, 
+           department.name AS department,
+           SUM(salary) AS budget
+           FROM  roles  
+           INNER JOIN department ON roles.department_id = department.id 
+           inner join employee on employee.role_id = roles.id
+           where department.name = "${bbDebt}";`
+        )
+   }
+
 }
 
 module.exports = new DB(connection);

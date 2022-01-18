@@ -187,7 +187,7 @@ function addRole(){
       },
       {
         type: "input",
-        message: "Enter the department id",
+        message: "Enter the Manager id",
         name: "newempdept"
       }
     ])
@@ -375,3 +375,42 @@ function delDept(){
           })
 }
 
+// ---- toatl budget of the company----
+
+function  tolBudget() {
+  console.log("hit")
+  db.totalbudgets()
+  .then(([rows]) => {
+      let budget = rows;
+      console.table(budget)
+  })
+  .then(() => mainMenu())
+}
+
+
+// ----- total budget frm the choosen dept---
+function budbyDept(){
+  db.findAllDepartments()
+  .then(([rows3]) => {
+    let buddept = rows3;
+    const buddeptChoice = buddept.map(({department}) => ({
+      name:   department
+    }))
+    inquirer.prompt([
+      {
+      type: "list",
+      name: "deptbud",
+      message: "Choose desire department to view budget",
+      choices: buddeptChoice
+      }
+  ])
+  .then (answer => {
+     db.budbydept1(answer.deptbud)
+     .then(([rows2]) =>{
+      let viewbd = rows2;
+      console.table(viewbd)
+    })
+    .then(() => mainMenu())
+     })
+          })
+}
