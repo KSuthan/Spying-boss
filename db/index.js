@@ -91,14 +91,11 @@ class DB {
   }
 
 // //------ Delete role------
-//   delrolen(delrole2){
-//     return this.connection.promise().query(
-//         `DELETE FROM roles WHERE title = "${delrole2}";`
-//         )
-
-        
-
-//     }
+  delrolen(delrole2){
+    return this.connection.promise().query(
+        `DELETE FROM roles WHERE title = "${delrole2}";`
+        )
+     }
 
 
 }

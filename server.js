@@ -24,7 +24,7 @@ function mainMenu(){
                         "Add Department", "Add Role" ,"Add Employee",
                         "Update employee role", "Update employee managers",
                         "View by manager", "View by department",
-                        "Delete Department", " Delete Role", "Delete employee",
+                        "Delete Department", "Delete Role", "Delete employee",
                         "total budget" , "budget by department", " Exit Employee Tracker"],
                         pageSize: 10
         }
@@ -68,7 +68,7 @@ function mainMenu(){
                 delDept();
                 break;
             case "Delete Role":
-                delRoles();
+                delroles();
                 break;
              case "Delete employee":
                 delEmp();
@@ -328,14 +328,27 @@ function  delEmp(){
 }
 
 // -------Function to delete role ----
-function  delRoles(){
-  db.findAllEmployees()
-  .then(([rows]) =>{
-      let delemp1 = rows;
-      const delRolechoice= delemp1.map(({first_name}) => ({
-       name: first_name,
-      }))
-      console.log(delRolechoice);
-  })}
+function delroles(){
+  db.findAllroles()
+  .then(([rows3]) => {
+    let delrole3 = rows3;
+    const delroleChoice = delrole3.map(({title}) => ({
+      name: title,
+    }))
+    inquirer.prompt([
+      {
+      type: "list",
+      name: "delrole",
+      message: "*** WARNING *** Deleting role will delete all employees associated with the role. Do you want to continue?",
+      choices: delroleChoice
+      }
+  ])
+  .then (answer => {
+     db.delrolen(answer.delrole)
+     console.log(`\n Role ${answer.delrole} delete \n`)
+     })
+     .then(() => mainMenu())
+          })
+}
 
 
