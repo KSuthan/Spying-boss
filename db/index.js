@@ -97,6 +97,11 @@ class DB {
         )
      }
 
+     deldeptn(deldept2){
+        return this.connection.promise().query(
+            `DELETE FROM department WHERE name = "${deldept2}";`
+            )
+    }
 
 }
 

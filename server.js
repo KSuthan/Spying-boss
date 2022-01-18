@@ -351,4 +351,27 @@ function delroles(){
           })
 }
 
+// -------Function to delete Department ----
+function delDept(){
+  db.findAllDepartments()
+  .then(([rows3]) => {
+    let deldept1 = rows3;
+    const deldeptChoice = deldept1.map(({department}) => ({
+      name:   department
+    }))
+    inquirer.prompt([
+      {
+      type: "list",
+      name: "deledept",
+      message: "*** WARNING *** Deleting department will delete all roles & employees associated with the department. Do you want to continue?",
+      choices: deldeptChoice
+      }
+  ])
+  .then (answer => {
+     db.deldeptn(answer.deledept)
+     console.log(`\n Department ${answer.deledept} delete \n`)
+     })
+     .then(() => mainMenu())
+          })
+}
 
