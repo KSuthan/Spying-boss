@@ -1,6 +1,6 @@
 
 const inquirer = require("inquirer");
-const { connection, findAllroles } = require("./db");
+const { connection } = require("./db");
 const db = require("./db")
 
 
@@ -338,7 +338,7 @@ function  updatEmpman(){
               ]).then(response => {
                   let newman = response.managername;
                   db.updateempman(employeeId, newman)
-                  console.log(`\n Employee ${newFirstn}  ${newLastn} manager updated \n`);
+                  console.log(`\n Employee ${newFirstn}  ${newLastn} manager \n`);
                 
               })
               .then(() => mainMenu())
@@ -457,4 +457,10 @@ function budbyDept(){
     .then(() => mainMenu())
      })
           })
+}
+
+
+function quit(){
+  console.log("bye. See You soon")
+  process.exit()
 }
