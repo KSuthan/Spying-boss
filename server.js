@@ -1,6 +1,6 @@
 
 const inquirer = require("inquirer");
-const { connection } = require("./db");
+const { connection, findAllroles } = require("./db");
 const db = require("./db")
 
 
@@ -24,7 +24,7 @@ function mainMenu(){
                         "Add Department", "Add Role" ,"Add Employee",
                         "Update employee role", "Update employee managers",
                         "View by manager", "View by department",
-                        "Delete Department", " Delete Roles", "Delete employee",
+                        "Delete Department", " Delete Role", "Delete employee",
                         "total budget" , "budget by department", " Exit Employee Tracker"],
                         pageSize: 10
         }
@@ -67,8 +67,8 @@ function mainMenu(){
             case  "Delete Department":
                 delDept();
                 break;
-            case "Delete Roles":
-                delRole();
+            case "Delete Role":
+                delRoles();
                 break;
              case "Delete employee":
                 delEmp();
@@ -303,7 +303,7 @@ function  updatEmpman(){
   })
 }
 
-//--- Function to delete employee---
+// --- Function to delete employee---
 function  delEmp(){
   db.findAllEmployees()
   .then(([rows]) =>{
@@ -326,3 +326,16 @@ function  delEmp(){
          .then(() => mainMenu())
               })     
 }
+
+// -------Function to delete role ----
+function  delRoles(){
+  db.findAllEmployees()
+  .then(([rows]) =>{
+      let delemp1 = rows;
+      const delRolechoice= delemp1.map(({first_name}) => ({
+       name: first_name,
+      }))
+      console.log(delRolechoice);
+  })}
+
+
