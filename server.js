@@ -197,8 +197,7 @@ function addRole(){
       let newErole = responce.newemprole;
       let newEdept = responce.newempdept
       db.addnewEmp(newFirstn,newLastn,newErole,newEdept)
-      console.log(`\n Employee ${newFirstn}  ${newLastn} ADDED \n`);
-      
+      console.log(`\n Employee ${newFirstn}  ${newLastn} ADDED \n`); 
   }).then(() => mainMenu())
   
   }
@@ -260,6 +259,50 @@ function   viewbyDept(){
 }
 
 
+// Update employee role----
+function  updateEmpRole(){
+  db.findAllEmployees()
+  .then(([rows]) =>{
+      let employee1 = rows;
+      const empchoice1 = employee1.map(({id,first_name,last_name}) => ({
+       name: `${first_name} ${last_name}`,
+       value: id
+      }))
+      inquirer.prompt([
+          {
+          type: "list",
+          name: "employeeId",
+          message: "which employee's role do you want to update?",
+          choices: empchoice1
+          }
+      ]).then (response => {
+          let employeeId = response.employeeId;
+          db.findAllroles()
+  .then(([rows]) =>{
+      let employee2 = rows;
+      const emprolechoice = employee2.map(({id,title}) => ({
+       name: title,
+       value: id
+      }))
+              inquirer.prompt([
+                  {
+                  type: "list",
+                  name: "empnewrole",
+                  message: "which  role do you want to assign to?",
+                  choices: emprolechoice
+                  }
+              ]).then(response => {
+                  let newrole = response.empnewrole;
+                  db.updateEmpRole(employeeId, newrole)
+                  console.log(`\n Employee ${newFirstn}  ${newLastn} role updated \n`);
+              })
+              .then(() => mainMenu())
+          })
+          
+      })
+  })
+}
+
 //----- Update employee manager function ------
 function  updatEmpman(){
   db.findAllEmployees()
@@ -295,7 +338,8 @@ function  updatEmpman(){
               ]).then(response => {
                   let newman = response.managername;
                   db.updateempman(employeeId, newman)
-                  console.table(" ");
+                  console.log(`\n Employee ${newFirstn}  ${newLastn} manager updated \n`);
+                
               })
               .then(() => mainMenu())
           })
