@@ -151,7 +151,7 @@ function addRole(){
       },
       {
         type: "input",
-        message: "Enter the  department",
+        message: "Enter the  department id",
         name: "department"
       }
     ])
@@ -294,7 +294,7 @@ function  updateEmpRole(){
               ]).then(response => {
                   let newrole = response.empnewrole;
                   db.updateEmpRole(employeeId, newrole)
-                  console.log(`\n Employee ${newFirstn}  ${newLastn} role updated \n`);
+                  console.log("Employee role updated");
               })
               .then(() => mainMenu())
           })
@@ -338,7 +338,7 @@ function  updatEmpman(){
               ]).then(response => {
                   let newman = response.managername;
                   db.updateempman(employeeId, newman)
-                  console.log(`\n Employee ${newFirstn}  ${newLastn} manager \n`);
+                  console.log("Employee manager updated");
                 
               })
               .then(() => mainMenu())
@@ -365,7 +365,7 @@ function  delEmp(){
       ])
       .then (answer => {
          db.delemployee(answer.delemployeen)
-         console.log(`\n Employee ${answer.delemployeen} delete \n`)
+         console.log(`\n Employee ${answer.delemployeen} remove from company \n`)
          })
          .then(() => mainMenu())
               })     
@@ -389,7 +389,7 @@ function delroles(){
   ])
   .then (answer => {
      db.delrolen(answer.delrole)
-     console.log(`\n Role ${answer.delrole} delete \n`)
+     console.log(`\n Role ${answer.delrole} removed from company \n`)
      })
      .then(() => mainMenu())
           })
@@ -413,7 +413,7 @@ function delDept(){
   ])
   .then (answer => {
      db.deldeptn(answer.deledept)
-     console.log(`\n Department ${answer.deledept} delete \n`)
+     console.log(`\n Department ${answer.deledept} removed from company \n`)
      })
      .then(() => mainMenu())
           })
