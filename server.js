@@ -24,7 +24,7 @@ function mainMenu(){
                         "Add Department", "Add Role" ,"Add Employee",
                         "Update employee role", "Update employee managers",
                         "View by manager", "View by department",
-                        "Delete Department", "Delete Role", "Delete employee",
+                        "Delete employee", "Delete Role", "Delete Department",
                         "total budget" , "budget by department", " Exit Employee Tracker"],
                         pageSize: 10
         }
