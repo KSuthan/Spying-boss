@@ -137,33 +137,52 @@ function addDDept() {
 
 // ---------Function to add a new role------
 function addRole(){
-    inquirer
-    .prompt([
-      {
-        type: "input",
-        message: "Enter the  title",
-        name: "roletitle"
-      },
-      {
-        type: "input",
-        message: "Enter the salary",
-        name: "salary"
-      },
-      {
-        type: "input",
-        message: "Enter the  department id",
-        name: "department"
-      }
-    ])
-    .then(responce =>{
-      let newrole = responce.roletitle;
-      let newsalary = responce.salary;
-      let department1 = responce.department
-      db.addNewRole(newrole,newsalary,department1)
-      console.log(`\n Role ${responce.roletitle} ADDED \n`);
-      
-  }).then(() => mainMenu())
-  }
+  inquirer
+  .prompt([
+    {
+      type: "input",
+      message: "Enter the  title",
+      name: "roletitle"
+    },
+    {
+      type: "input",
+      message: "Enter the salary",
+      name: "salary",
+      validate: salary => {
+        let valid = /^\d+(\.\d{0,2})?$/.test(salary);
+        if (valid) {
+            return true;
+        } else {
+            console.log(`. Please enter in a valid number`)
+            return false;
+    
+       } }
+    }
+  ]).then(response => {
+    let newrole = response.roletitle;
+    let newsalary = response.salary;
+    db.findAllDepartments()
+    .then(([rows]) =>{
+      let deptn = rows;
+      const deptchoice = deptn.map(({dept_id, department}) => ({
+       name: department,
+       value: dept_id
+      }))
+      inquirer.prompt([
+        {
+          type: "list",
+          message: "Enter the  department",
+          name: "department",
+          choices: deptchoice
+        }
+      ])
+      .then(responce =>{
+        let department1 = responce.department;
+        db.addNewRole(newrole,newsalary,department1)
+        console.log(`\n Role ${newrole} ADDED \n`);
+}).then(() => mainMenu())
+    })})
+}
 
 
   // ---------Function to add a new employee------
